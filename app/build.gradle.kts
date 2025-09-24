@@ -58,6 +58,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     implementation (libs.retrofit2.retrofit)
+    implementation(libs.converter.gson)
 
     implementation(libs.coil.network.okhttp)
 
@@ -74,4 +75,6 @@ dependencies {
     implementation(libs.androidx.media3.exoplayer.smoothstreaming)
 
     implementation(libs.androidx.media3.cast)
+
+    implementation(libs.gson)
 }
