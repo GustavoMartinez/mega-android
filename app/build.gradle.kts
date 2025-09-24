@@ -56,4 +56,22 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    implementation (libs.retrofit2.retrofit)
+
+    implementation(libs.coil.network.okhttp)
+
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
+
+    implementation(libs.androidx.media3.exoplayer.hls)
+    implementation(libs.androidx.media3.exoplayer.dash)
+    implementation(libs.androidx.media3.exoplayer.smoothstreaming)
+
+    implementation(libs.androidx.media3.cast)
 }
