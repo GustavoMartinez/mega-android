@@ -1,52 +1,55 @@
-<<<<<<< HEAD
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
-=======
+# =========================
+# Android / Gradle Project
+# =========================
+
 # Gradle files
 .gradle/
 build/
+**/build/
 
-# Local configuration file (sdk path, etc)
+# Local configuration
 local.properties
 
-# Log/OS Files
+# Log/Temp files
 *.log
+*.temp
+*.tmp
 
-# Android Studio generated files and folders
-captures/
-.externalNativeBuild/
-.cxx/
-*.aab
-*.apk
-output-metadata.json
+# =========================
+# IntelliJ / Android Studio
+# =========================
 
-# IntelliJ
-*.iml
+# IDE settings
 .idea/
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
+*.iml
+*.ipr
+*.iws
 
-# Keystore files
+# IDE caches
+caches/
+out/
+
+# =========================
+# OS-specific files
+# =========================
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Linux
+*~
+
+# =========================
+# Misc
+# =========================
+
+# Keystore files (cuidado, no subir claves privadas)
 *.jks
 *.keystore
 
-# Google Services (e.g. APIs or Firebase)
-google-services.json
-
-# Android Profiling
-*.hprof
->>>>>>> fae98633832e97d886fe99d92684e42e77788b63
+# Gradle wrapper
+!gradle-wrapper.jar
