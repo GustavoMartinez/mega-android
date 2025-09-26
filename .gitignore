@@ -53,3 +53,7 @@ desktop.ini
 
 # Gradle wrapper
 !gradle-wrapper.jar
+
+daemon/8.13/
+
+kotlin-profile/
