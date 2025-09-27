@@ -5,18 +5,14 @@ import com.app.megaandroid.model.Contenido
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class ContenidoRepository @Inject constructor(private val apiService: ApiService) {
-
-    suspend fun getContenidos(): Result<List<Contenido>> {
-        return try {
-            val response = withContext(Dispatchers.IO) {
-                apiService.getContenidos()
-            }
-            Result.success(response)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+@Singleton
+class ContenidoRepository @Inject constructor(
+    private val apiService: ApiService
+) {
+    suspend fun getContenidos(): List<Contenido> {
+        return apiService.getContenidos()
     }
 
 }
