@@ -1,5 +1,6 @@
 package com.app.megaandroid.ui.screen
 
+import android.content.res.Configuration
 import androidx.annotation.OptIn
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -32,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -61,6 +63,7 @@ fun VideoScreen(viewModel: ContenidosViewModel = hiltViewModel()
     val contenidos by viewModel.contenidos.collectAsStateWithLifecycle()
     var selectedUrl by remember { mutableStateOf<String?>(null) }
     var playerView by remember { mutableStateOf<PlayerView?>(null) }
+    val landscape = isLandscape()
 
     if (contenidos.isEmpty()) {
         Box(
@@ -93,9 +96,14 @@ fun VideoScreen(viewModel: ContenidosViewModel = hiltViewModel()
                         playerView = this
                     }
                 },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(240.dp)
+                modifier = if (landscape) {
+                    Modifier.fillMaxSize()
+                } else {
+                    Modifier
+                        .fillMaxWidth()
+                        .height(240.dp)
+                }
+
             )
 
             LazyColumn(
@@ -155,4 +163,10 @@ fun ContenidoItem(
         }
     }
 
+}
+
+@Composable
+fun isLandscape(): Boolean {
+    val configuration = LocalConfiguration.current
+    return configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 }
