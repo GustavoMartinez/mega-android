@@ -8,10 +8,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+/**
+ * @author Gustavo Martínez
+ * @version 1.0.0
+ * Object donde se crea la instancia de Retrofit.
+ * Contiene la URL base de la API.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    private const val BASE_URL = "https://0937ba5c74e3.ngrok-free.app"
+    private const val BASE_URL = "https://fc0f3687fe6f.ngrok-free.app"
 
     @Provides
     @Singleton

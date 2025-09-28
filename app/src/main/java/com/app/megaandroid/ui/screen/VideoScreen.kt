@@ -15,11 +15,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButtonDefaults.elevation
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,10 +33,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.view.doOnPreDraw
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
@@ -41,12 +45,20 @@ import coil.compose.AsyncImage
 import com.app.megaandroid.model.Contenido
 import com.app.megaandroid.viewmodel.ContenidosViewModel
 
+/**
+ * @author Gustavo Martínez
+ * @version 1.0.0
+ * File que contiene la vista principal de la aplicación.
+ * Usa dos composables:
+ * - VideoScreen: Composable que contiene la vista principal de la aplicación.
+ * - ContenidoItem: Composable que muestra un elemento de contenido.
+ */
 @OptIn(UnstableApi::class)
 @Composable
 fun VideoScreen(viewModel: ContenidosViewModel = hiltViewModel()
 ) {
 
-    val contenidos by viewModel.contenidos.collectAsState()
+    val contenidos by viewModel.contenidos.collectAsStateWithLifecycle()
     var selectedUrl by remember { mutableStateOf<String?>(null) }
     var playerView by remember { mutableStateOf<PlayerView?>(null) }
 
@@ -71,14 +83,6 @@ fun VideoScreen(viewModel: ContenidosViewModel = hiltViewModel()
             selectedUrl?.let {viewModel.playUrl(it)}
         }
 
-//        LaunchedEffect(selectedUrl) {
-//            selectedUrl?.let { url ->
-//                viewModel.playUrl(url)
-//            }
-//
-//        }
-
-
         Column(modifier = Modifier.fillMaxSize()) {
             AndroidView(
                 factory = { ctx ->
@@ -91,7 +95,7 @@ fun VideoScreen(viewModel: ContenidosViewModel = hiltViewModel()
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp)
+                    .height(240.dp)
             )
 
             LazyColumn(
@@ -109,11 +113,7 @@ fun VideoScreen(viewModel: ContenidosViewModel = hiltViewModel()
             }
         }
 
-
-
     }
-
-
 }
 
 @Composable
@@ -121,24 +121,38 @@ fun ContenidoItem(
     contenido: Contenido,
     onClick: () -> Unit
 ) {
-    Row (modifier = Modifier
-        .fillMaxWidth()
-        .clickable { onClick() }
-        .padding(16.dp)
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(4.dp)
+            .clickable { onClick() },
+            shape = RoundedCornerShape(12.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        AsyncImage(
-            model = contenido.imagen,
-            contentDescription = contenido.titulo,
-            modifier = Modifier
-                .size(100.dp)
-                .clip(RoundedCornerShape(8.dp)),
-            contentScale = ContentScale.Crop
-        )
-        Spacer(modifier = Modifier.width(12.dp))
+        Row (modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .padding(8.dp)
+        ) {
+            AsyncImage(
+                model = contenido.imagen,
+                contentDescription = contenido.titulo,
+                modifier = Modifier
+                    .size(height = 90.dp, width = 120.dp)
+                    .clip(RoundedCornerShape(8.dp)),
+                contentScale = ContentScale.Crop
+            )
+            Spacer(modifier = Modifier.width(12.dp))
 
-        Column(modifier = Modifier.fillMaxWidth()) {
-            Text(text = contenido.titulo)
-            Text(text = contenido.descripcion)
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(text = contenido.titulo,
+                    style = MaterialTheme.typography.titleMedium)
+                Text(text = contenido.descripcion,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis)
+            }
         }
     }
+
 }

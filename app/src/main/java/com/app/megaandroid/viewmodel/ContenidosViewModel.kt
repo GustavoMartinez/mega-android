@@ -13,6 +13,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * @author Gustavo Martínez
+ * Clase que contiene la lógica de la aplicación.
+ * Obtiene los contenidos de la API y los muestra en la vista.
+ * Inicia el reproductor de video.
+ * Controla el cambio de video.
+ */
 @HiltViewModel
 class ContenidosViewModel @Inject constructor (
     private val repository: ContenidoRepository
